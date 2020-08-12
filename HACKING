@@ -30,14 +30,25 @@ Use git to checkout the RescueOS source.  It will go into a subdirectory named
 
   $ git clone <rescueos repository url>
 
-Fetch, verify, and unpack the buildroot source.    It will end up in a
-subdirectory named 'buildroot-2013.02'.
+Fetch the buildroot source tarball and checksums file.
 
   $ wget http://www.buildroot.org/downloads/buildroot-2013.02.tar.bz2
   $ wget http://www.buildroot.org/downloads/buildroot-2013.02.tar.bz2.sign
+
+The checksums file (.sign) is a text file with an inline PGP signature.  Verify
+the signature and check the tarball with the checksum.
+
   $ gpg --recv-keys B025BA8B59C36319
+  # This doesn't work because apparently it's not a detached signature.
   $ gpg --verify buildroot-2013.02.tar.bz2.sign
-  $ compare the checksums in buildroot-2013.02.tar.bz2.sign with the actual checksums of buildroot-2013.02.tar.bz2 (it's not a detached signature)
+  $ gpg --output buildroot-2013.02.tar.bz2.sums buildroot-2013.02.tar.bz2.sign
+  # compare the checksums in buildroot-2013.02.tar.bz2.sign with the actual checksums of buildroot-2013.02.tar.bz2 (it's not a detached signature)
+  $ grep '^SHA1: ' buildroot-2013.02.tar.bz2.sums | sha1sum --check
+  # Or you could try this sed instead.
+  $ sed -n 's/^SHA1: //p' buildroot-2013.02.tar.bz2.sums | sha1sum --check
+
+Unpack buildroot.  It will end up in a subdirectory named 'buildroot-2013.02'.
+
   $ tar --extract --bzip --file buildroot-2013.02.tar.bz2
 
 Buildroot's prerequisites are documented in the "System requirements" section

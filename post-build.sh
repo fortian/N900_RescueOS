@@ -24,5 +24,3 @@ ln -sf "/rescueOS/umount-maemo-root.sh" "$target/sbin/ummr"
 ln -sf "/rescueOS/mass-storage-enable.sh" "$target/sbin/mse"
 ln -sf "/rescueOS/mass-storage-disable.sh" "$target/sbin/msd"
 ln -sf "/rescueOS/enableftp.sh" "$target/sbin/enftp"
-
-

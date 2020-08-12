@@ -10,7 +10,7 @@
 #charger=0
 #fi
 #}
-while : ; do
+while :; do
   cap=`cat /sys/class/power_supply/bq27200-0/capacity`
   #fill_charger
   #if [ $cap -le 55 -a $charger -eq 0 ]; then
